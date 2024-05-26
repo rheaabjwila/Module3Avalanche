@@ -1,0 +1,37 @@
+//SPDX-License-Identifier: MIT
+  pragma solidity ^0.8.18;
+        
+        contract Tokens{
+
+            address public proprietor;
+
+            constructor(address Proprietor){
+               proprietor = Proprietor;
+            }
+                    mapping (address Address => uint Etherium)public Balances;
+
+                function Mint (address Sender, uint _Token)public{
+                        if(Sender == proprietor){
+                            Balances[Sender] += _Token;
+                        }else{
+                            revert("Only the proprietor can mint a Token");
+                        }
+                }
+
+                function Burn (address Sender, uint _Token)public{
+                       if(Balances[Sender] <= _Token){
+                            revert("The proprietor balance is not enough");
+                       }else{
+                            Balances[Sender] -= _Token;
+                       } 
+                }
+
+                function Transfer (address From, address To, uint _Token)public{
+                        if(Balances[From] <= _Token){
+                            revert("The proprietor balance is not enough");
+                       }else{
+                            Balances[From] -= _Token;
+                            Balances[To] += _Token;
+                       }
+                }
+         }
